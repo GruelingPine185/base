@@ -10,7 +10,6 @@ void _b_setup_foffsets(b_file* _file, const uint32_t _len);
 inline void _b_setup_foffsets(b_file* _file, const uint32_t _len) {
     if(!_file || !_len) return;
 
-    // todo: #2 handle file stems that begin with '.'
     _file->stem = (_file->stem && _file->stem < _len)?
         _file->stem + 1 : _file->stem;
     _file->stem = (_file->stem == _len - 1)? 0 : _file->stem;
