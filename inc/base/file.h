@@ -20,6 +20,7 @@ EXT_BEGIN
 b_file b_new_file(const char* _path);
 const char* b_get_fname(const b_file* _file, const char* _path);
 const char* b_get_fext(const b_file* _file, const char* _path);
+char* b_get_fstem(const b_file* _file, const char* _path);
 EXT_END
 
 #endif // BASE_FILE_H

@@ -1,4 +1,5 @@
-#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "file.h"
 
@@ -51,4 +52,15 @@ b_file b_new_file(const char* _path) {
     if(_path[i] != '/') _b_setup_foffsets(&file, i);
 
     return file;
+}
+
+char* b_get_fstem(const b_file* _file, const char* _path) {
+    if(!_path || !_file) return NULL;
+
+    uint32_t delta = _file->ext - _file->stem - 1;
+    char* stem = malloc(sizeof(char) * delta + 1);
+    if(!stem) return NULL;
+
+    strncpy(stem, (_path + _file->stem), delta);
+    return stem;
 }
