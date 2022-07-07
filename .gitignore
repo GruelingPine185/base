@@ -1,3 +1,9 @@
+# base
+base
+test
+*.o
+!/inc/base/
+
 # vscode
 *.code-workspace
 .vscode/
