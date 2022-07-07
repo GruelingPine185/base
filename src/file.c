@@ -1,3 +1,5 @@
+#include <stddef.h>
+
 #include "file.h"
 
 
@@ -13,7 +15,19 @@ inline void _b_setup_foffsets(b_file* _file, const uint32_t _len) {
     _file->stem = (_file->stem == _len - 1)? 0 : _file->stem;
     _file->ext = (_file->ext && _file->ext < _len)?
         _file->ext + 1 : _file->ext;
-    _file->ext = (_file->ext== _len - 1)? 0 : _file->ext;
+    _file->ext = (_file->ext == _len - 1)? 0 : _file->ext;
+}
+
+inline const char* b_get_fname(const b_file* _file, const char* _path) {
+    if(!_path) return NULL;
+    return (!_file->stem && *_path != '/')?
+        (_path + _file->stem) : NULL;
+    return (_path + _file->stem);
+}
+
+inline const char* b_get_fext(const b_file* _file, const char* _path) {
+    if(!_path || (!_file->ext && *_path != '.')) return NULL;
+    return (_path + _file->ext);
 }
 
 b_file b_new_file(const char* _path) {
@@ -34,6 +48,7 @@ b_file b_new_file(const char* _path) {
         }
     } while(_path[i++]);
 
-    _b_setup_foffsets(&file, i);
+    if(_path[i] != '/') _b_setup_foffsets(&file, i);
+
     return file;
 }
