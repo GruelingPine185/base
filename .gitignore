@@ -2,7 +2,14 @@
 base
 test
 *.o
+libbase.*
 !/inc/base/
+bin/
+lib/
+
+# bear
+compiler_commands.json
+.cache/
 
 # vscode
 *.code-workspace
