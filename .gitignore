@@ -8,7 +8,7 @@ bin/
 lib/
 
 # bear
-compiler_commands.json
+compile_commands.json
 .cache/
 
 # vscode
