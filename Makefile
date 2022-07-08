@@ -1,19 +1,25 @@
 include mk/build.mk
 
-PROJECT = base
 
+PROJECT = base
 LIB_BASE := lib$(PROJECT).$(LIB_EXT)
 
-INCLUDES += -I$(INC_DIR)
 
 .PHONY: all clean
 all:
 	@$(MAKE) $(LIB_DIR)/$(LIB_BASE)
 clean:
 	-rm -rf $(BIN_DIR) *.o $(LIB_DIR) *.$(LIB_EXT)
+install:
+	sudo cp -r $(INC_DIR) $(INSTALL_INC_DIR)
+	sudo cp $(LIB_BASE) $(INSTALL_LIB_DIR)
+uninstall:
+	sudo rm -rf $(INSTALL_INC_DIR)/$(PROJECT)
+	sudo rm -f $(INSTALL_LIB_DIR)$(LIB_BASE)
+
 
 $(LIB_DIR)/$(LIB_BASE): $(LIB_DIR) $(BIN_DIR) $(INC_DIR)/*.h $(SRC_DIR)/*.c
-	$(call make_lib,$(INCLUDES),$(SRC_DIR)/*.c,$(LIB_BASE))
+	$(call make_lib,$(INCLUDES),$(SRC_DIR)/*.c,$(LIB_BASE),)
 
 $(LIB_DIR):
 	-mkdir $@

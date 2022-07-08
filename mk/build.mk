@@ -7,6 +7,10 @@ SRC_DIR = src
 LIB_DIR = lib
 VND_DIR = vendor
 
+INSTALL_DIR = /usr/local
+INSTALL_INC_DIR = $(INSTALL_DIR)/include
+INSTALL_LIB_DIR = $(INSTALL_DIR)/lib
+
 LIB_EXT =
 
 CC =
@@ -15,7 +19,7 @@ C_OPT = -O2
 C_WARN = -Wall -Wextra -pedantic
 CFLAGS = $(C_STD) $(C_OPT) $(C_WARN)
 LDFLAGS =
-INCLUDES =
+INCLUDES = -I$(INC_DIR)
 
 
 ifeq ($(OS),Windows_NT)
@@ -36,10 +40,10 @@ else
     endif
 endif
 
-# 1: includes, 2: sources 3: library mane
+# 1: includes, 2: sources 3: library name 4: ldflags
 define make_lib
 	$(CC) $(CFLAGS) $(1) -fPIC -c $(2)
 	mv *.o $(BIN_DIR)
-	$(CC) $(CFLAGS) -shared $(BIN_DIR)/*.o -o $(3)
+	$(CC) $(CFLAGS) -shared $(BIN_DIR)/*.o -o $(3) $(4)
 	mv $(3) $<
 endef
