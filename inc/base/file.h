@@ -8,11 +8,17 @@
 
 
 typedef struct b_file b_file;
+typedef struct b_fpos b_fpos;
 
 
 struct b_file {
     uint32_t stem;
     uint32_t ext;
+};
+
+struct b_fpos {
+    uint32_t ln;
+    uint32_t col;
 };
 
 
