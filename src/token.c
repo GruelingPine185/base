@@ -1,6 +1,13 @@
 #include "token.h"
 
 
+inline int b_is_whitespace(const char _c) {
+    return (
+        _c == '\t' || _c == '\r' || _c == '\n' ||
+        _c == ' '
+    );
+}
+
 inline int b_is_letter(const char _c) {
     return (b_is_upcase(_c) || b_is_locase(_c));
 }
