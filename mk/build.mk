@@ -10,7 +10,7 @@ VND_DIR = vendor
 INSTALL_DIR = /usr/local
 INSTALL_INC_DIR = $(INSTALL_DIR)/include
 INSTALL_LIB_DIR = $(INSTALL_DIR)/lib
-
+LOCAL_DIR = $(PWD)
 LIB_EXT =
 
 CC =
