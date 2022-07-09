@@ -39,11 +39,3 @@ else
 		LIB_EXT = dylib
     endif
 endif
-
-# 1: includes, 2: sources 3: library name 4: ldflags
-define make_lib
-	$(CC) $(CFLAGS) $(1) -fPIC -c $(2)
-	mv *.o $(BIN_DIR)
-	$(CC) $(CFLAGS) -shared $(BIN_DIR)/*.o -o $(3) $(4)
-	mv $(3) $<
-endef

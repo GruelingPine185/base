@@ -7,18 +7,20 @@ LIB_BASE := lib$(PROJECT).$(LIB_EXT)
 
 .PHONY: all clean
 all:
-	@$(MAKE) $(LIB_DIR)/$(LIB_BASE)
+	@$(MAKE) $(LIB_BASE)
 clean:
-	-rm -rf $(BIN_DIR) *.o $(LIB_DIR) *.$(LIB_EXT)
+	-rm -rf $(BIN_DIR) *.o *.$(LIB_EXT)
 install:
-	sudo cp -r $(LOCAL_DIR)/$(INC_DIR) $(INSTALL_INC_DIR)
-	sudo cp $(LOCAL_DIR)/$(LIB_DIR)/$(LIB_BASE) $(INSTALL_LIB_DIR)
+	cp -r $(INC_DIR) $(INSTALL_INC_DIR)
+	cp $(LIB_BASE) $(INSTALL_LIB_DIR)
 uninstall:
-	sudo rm -rf $(INSTALL_INC_DIR)/$(PROJECT)
-	sudo rm -f $(INSTALL_LIB_DIR)$(LIB_BASE)
+	rm -rf $(INSTALL_INC_DIR)/$(PROJECT)
+	rm -f $(INSTALL_LIB_DIR)$(LIB_BASE)
 
-$(LIB_DIR)/$(LIB_BASE): $(LIB_DIR) $(BIN_DIR) $(INC_DIR)/*.h $(SRC_DIR)/*.c
-	$(call make_lib,$(INCLUDES),$(SRC_DIR)/*.c,$(LIB_BASE),)
+$(LIB_BASE): $(BIN_DIR) $(INC_DIR)/*.h $(SRC_DIR)/*.c
+	$(CC) $(CFLAGS) $(INCLUDES) -fPIC -c $(SRC_DIR)/*.c
+	mv *.o $(BIN_DIR)
+	$(CC) $(CFLAGS) -shared $(BIN_DIR)/*.o -o $(LIB_BASE)
 
 $(LIB_DIR):
 	-mkdir $@
